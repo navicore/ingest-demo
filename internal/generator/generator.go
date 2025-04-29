@@ -23,17 +23,16 @@ type Record struct {
 }
 
 func Generate(w io.Writer, count int) error {
-	rand.Seed(time.Now().UnixNano())
-	
-	for i := 0; i < count; i++ {
+
+	for range count {
 		// Generate a unique UUID with mrn prefix
 		id := uuid.New()
 		mrnUUID := fmt.Sprintf("urn:mrn:signalk:uuid:%s", id.String())
-		
+
 		// San Francisco Bay area coordinates
 		baseLat := 37.78
 		baseLong := -122.38
-		
+
 		record := Record{
 			Version:   "1.0.0",
 			Name:      fmt.Sprintf("Boat %d", rand.Intn(100)+1),
@@ -45,16 +44,16 @@ func Generate(w io.Writer, count int) error {
 			Speed:     float64(rand.Intn(15) + 1),
 			Timestamp: time.Now(),
 		}
-		
+
 		data, err := json.Marshal(record)
 		if err != nil {
 			return err
 		}
-		
+
 		if _, err := fmt.Fprintln(w, string(data)); err != nil {
 			return err
 		}
 	}
-	
+
 	return nil
 }
