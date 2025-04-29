@@ -19,9 +19,9 @@ issues:
         - errcheck
   max-issues-per-linter: 0
   max-same-issues: 0
+  exclude-dirs:
+    - vendor/
 
 run:
   deadline: 5m
   tests: true
-  skip-dirs:
-    - vendor/
